@@ -527,3 +527,41 @@ grid = createGrid();
 draw(); 
 loadHighScore();
 loadSettings(); // <-- ADICIONADO: Carrega as configurações de som salvas
+// === EASTER EGG: MODO FANTASMA ===
+let secretInput = "";
+let ghostActive = false;
+
+document.addEventListener("keydown", (event) => {
+  // Ignora se já estiver ativo
+  if (ghostActive) return;
+
+  secretInput += event.key.toLowerCase();
+  if (secretInput.length > 5) {
+    secretInput = secretInput.slice(-5); // mantém só 5 letras
+  }
+
+  if (secretInput === "ghost") {
+    activateGhostMode();
+  }
+});
+
+function activateGhostMode() {
+  const message = document.getElementById("ghost-mode-message");
+  ghostActive = true;
+
+  // Mostra mensagem e aplica o modo
+  message.style.display = "block";
+  document.body.classList.add("ghost-mode");
+
+  // Se quiser som: (opcional)
+  const ghostSound = new Audio("https://actions.google.com/sounds/v1/ambiences/ghost_whisper.ogg");
+  ghostSound.play();
+
+  // Depois de 10 segundos, volta ao normal
+  setTimeout(() => {
+    document.body.classList.remove("ghost-mode");
+    message.style.display = "none";
+    ghostActive = false;
+    secretInput = "";
+  }, 10000);
+}
