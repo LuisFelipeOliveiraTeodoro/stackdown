@@ -546,3 +546,39 @@ canvas {
 #muteButton.muted {
     background-color: #ffc107; /* Amarelo */
 }
+/* === EASTER EGG: MODO FANTASMA === */
+#ghost-mode-message {
+  display: none;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #00ffea;
+  font-size: 2rem;
+  font-family: 'Courier New', monospace;
+  padding: 20px 40px;
+  border: 2px solid #00ffea;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #00ffea;
+  z-index: 1000;
+  text-align: center;
+  animation: ghostFade 1s ease-in-out infinite alternate;
+}
+
+@keyframes ghostFade {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
+/* As peças ficam translúcidas no modo fantasma */
+body.ghost-mode canvas {
+  opacity: 0.3;
+  transition: opacity 0.5s;
+}
+
+/* Fundo sombrio */
+body.ghost-mode {
+  background: radial-gradient(circle, #000000, #1a0033);
+  transition: background 1s;
+}
